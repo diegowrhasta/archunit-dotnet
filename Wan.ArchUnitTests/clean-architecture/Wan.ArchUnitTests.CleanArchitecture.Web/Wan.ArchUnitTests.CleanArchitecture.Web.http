@@ -1,0 +1,6 @@
+@Wan.ArchUnitTests.CleanArchitecture.Web_HostAddress = http://localhost:5028
+
+GET {{Wan.ArchUnitTests.CleanArchitecture.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
