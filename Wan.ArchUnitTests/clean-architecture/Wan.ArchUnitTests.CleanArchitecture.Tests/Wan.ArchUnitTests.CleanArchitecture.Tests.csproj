@@ -22,6 +22,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Application\Wan.ArchUnitTests.CleanArchitecture.Application.csproj" />
       <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Core\Wan.ArchUnitTests.CleanArchitecture.Core.csproj" />
+      <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Infrastructure\Wan.ArchUnitTests.CleanArchitecture.Infrastructure.csproj" />
       <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Web\Wan.ArchUnitTests.CleanArchitecture.Web.csproj" />
     </ItemGroup>
 
