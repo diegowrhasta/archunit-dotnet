@@ -1,5 +1,5 @@
 ﻿namespace Wan.ArchUnitTests.CleanArchitecture.Core;
 
-public class Class1
+public class CoreClass
 {
 }

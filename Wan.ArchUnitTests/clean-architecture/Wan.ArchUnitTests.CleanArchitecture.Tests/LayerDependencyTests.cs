@@ -63,4 +63,28 @@ public class LayerDependencyTests
             .And(infrastructureRule)
             .Check(Architecture);
     }
+    
+    [Fact]
+    public void Application_Should_Only_Depend_On_Core()
+    {
+        var webRule = Types()
+            .That().Are(ApplicationLayer)
+            .Should().DependOnAny(CoreLayer)
+            .Because("Application should depend only on Core");
+        
+        var infrastructureRule = Types()
+            .That().Are(ApplicationLayer)
+            .Should().NotDependOnAny(InfrastructureLayer)
+            .Because("Application should not have dependencies on Infrastructure");
+        
+        var applicationRule = Types()
+            .That().Are(ApplicationLayer)
+            .Should().NotDependOnAny(WebLayer)
+            .Because("Application should not have dependencies on Web");
+
+        webRule
+            .And(applicationRule)
+            .And(infrastructureRule)
+            .Check(Architecture);
+    }
 }
