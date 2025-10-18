@@ -38,7 +38,7 @@ public class LayerDependencyTests
         Types().That().ResideInAssembly(InfrastructureAssembly).As("Infrastructure Layer");
 
     private static readonly IObjectProvider<IType> WebLayer =
-        Types().That().ResideInAssembly(ApplicationAssembly).As("Web Layer");
+        Types().That().ResideInAssembly(WebAssembly).As("Web Layer");
 
     [Fact]
     public void Core_Should_Not_Depend_On_Any_Layer()
@@ -67,9 +67,10 @@ public class LayerDependencyTests
     [Fact]
     public void Application_Should_Only_Depend_On_Core()
     {
-        var webRule = Types()
+        var coreRule = Types()
             .That().Are(ApplicationLayer)
-            .Should().DependOnAny(CoreLayer)
+            .And().DependOnAny(CoreLayer)
+            .Should().Exist()
             .Because("Application should depend only on Core");
         
         var infrastructureRule = Types()
@@ -77,14 +78,66 @@ public class LayerDependencyTests
             .Should().NotDependOnAny(InfrastructureLayer)
             .Because("Application should not have dependencies on Infrastructure");
         
-        var applicationRule = Types()
+        var webRule = Types()
             .That().Are(ApplicationLayer)
             .Should().NotDependOnAny(WebLayer)
             .Because("Application should not have dependencies on Web");
 
-        webRule
-            .And(applicationRule)
+        coreRule
+            .And(webRule)
             .And(infrastructureRule)
+            .Check(Architecture);
+    }
+    
+    [Fact]
+    public void Web_Should_Only_Depend_On_Application_And_Infrastructure()
+    {
+        var webRule = Types()
+            .That().Are(WebLayer)
+            .And().DependOnAny(ApplicationLayer)
+            .Should().Exist()
+            .Because("Web should depend on Application");
+        
+        var infrastructureRule = Types()
+            .That().Are(WebLayer)
+            .And().DependOnAny(InfrastructureLayer)
+            .Should().Exist()
+            .Because("Web should depend on Infrastructure");
+        
+        var coreRule = Types()
+            .That().Are(WebLayer)
+            .Should().NotDependOnAny(CoreLayer)
+            .Because("Web should not depend on Core");
+
+        webRule
+            .And(coreRule)
+            .And(infrastructureRule)
+            .Check(Architecture);
+    }
+    
+    [Fact]
+    public void Infrastructure_Should_Only_Depend_On_Core_And_Application()
+    {
+        var coreRule = Types()
+            .That().Are(InfrastructureLayer)
+            .And().DependOnAny(CoreLayer)
+            .Should().Exist()
+            .Because("Infrastructure should depend on Core");
+        
+        var applicationRule = Types()
+            .That().Are(InfrastructureLayer)
+            .And().DependOnAny(ApplicationLayer)
+            .Should().Exist()
+            .Because("Infrastructure should depend on Application");
+        
+        var webRule = Types()
+            .That().Are(InfrastructureLayer)
+            .Should().NotDependOnAny(WebLayer)
+            .Because("Infrastructure should not depend on Web");
+
+        coreRule
+            .And(webRule)
+            .And(applicationRule)
             .Check(Architecture);
     }
 }

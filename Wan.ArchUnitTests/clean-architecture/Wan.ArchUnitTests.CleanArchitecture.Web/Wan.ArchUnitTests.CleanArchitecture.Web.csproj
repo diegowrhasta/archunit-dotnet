@@ -10,4 +10,9 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Application\Wan.ArchUnitTests.CleanArchitecture.Application.csproj" />
+      <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Infrastructure\Wan.ArchUnitTests.CleanArchitecture.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

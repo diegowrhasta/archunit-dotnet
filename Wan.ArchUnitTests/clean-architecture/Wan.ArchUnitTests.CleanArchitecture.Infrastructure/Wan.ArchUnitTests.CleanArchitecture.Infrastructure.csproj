@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Application\Wan.ArchUnitTests.CleanArchitecture.Application.csproj" />
+      <ProjectReference Include="..\Wan.ArchUnitTests.CleanArchitecture.Core\Wan.ArchUnitTests.CleanArchitecture.Core.csproj" />
+    </ItemGroup>
+
 </Project>
